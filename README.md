@@ -7,7 +7,9 @@
 This repository contains steps to train [NVIDIA/tacotron2](https://github.com/NVIDIA/tacotron2) on a multi speaker Hindi Language dataset. 
 
 # Demo 
-<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1178426269&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/aastha-singh-948869638" title="Aastha Singh" target="_blank" style="color: #cccccc; text-decoration: none;">Aastha Singh</a> · <a href="https://soundcloud.com/aastha-singh-948869638/tacotron2" title="Tacotron2" target="_blank" style="color: #cccccc; text-decoration: none;">Tacotron2</a></div>
+
+You can play the demo [here](https://soundcloud.com/aastha-singh-948869638/tacotron2?si=702096ea006c4f59b971e5bed504aabf&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing).
+
 # Index 
 
 1. Pre-requisites
@@ -26,7 +28,7 @@ This repository contains steps to train [NVIDIA/tacotron2](https://github.com/NV
    - 5.3 [Multi-GPU (distributed) and Automatic Mixed Precision Training](#multi-gpu-and-automatic-mixed-precision-training)
    - 5.4 [View Tensorboard](#view-tensorboard)
 6. Inference
-    - 6.1 [Download pre-trained models](#download-pre-trained models)
+    - 6.1 [Download pre-trained models](#download-pre-trained-models)
     - 6.2 [Run Jupyter notebook](#run-jupyter-notebook)
 7. Related repos
 8. Acknowledgements
@@ -112,7 +114,6 @@ mv test HindiDataset/
 ```
 
 ---
-
 
 ## 4. Data Preprocessing
 
