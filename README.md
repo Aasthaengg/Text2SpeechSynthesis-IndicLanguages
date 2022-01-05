@@ -18,10 +18,19 @@ You can play the demo [here](https://soundcloud.com/aastha-singh-948869638/tacot
    - 2.2 [Apex](#apex)
    - 2.3 [Other Python requirements](#other-python-requirements)
 3. Dataset
-   - 3.1 [About dataset](#about-dataset) 
-   - 3.2 [Download and extract dataset](#download-and-extract-dataset)
+   - 3.1 [About OpenSLR dataset](#about-openslr-dataset) 
+   - 3.2 [About IIIT-Hyderabad Dataset](#about-iiit-hyderabad-dataset)
+   - 3.3 [Download and extract OpenSLR dataset](#download-and-extract-openslr-dataset)
+   - 3.4 [Download and extract IIIT-Hyd dataset](#download-and-extract-iiit-hyd-dataset)
 4. Data Preprocessing
-   - 4.1 [Creating train and test text files](#creating-train-and-test-text-files)
+   - 4.1 [OpenSLR](#openslr)
+      - 4.1.1 [Upsample to 22050 Hz](#upsample-to-22050-hz)
+      - 4.1.2 [Creating train and test text files](#creating-train-and-test-text-files)
+      - 4.1.3 [Update hparams.py](#update-hparams.py)
+   - 4.2 [IIIT-Hyd](#iiit-hyd)
+      - 4.2.1 [Downsample to 22050 Hz](#downsample-to-22050-hz)
+      - 4.2.2 [Creating train and test text files](#creating-train-and-test-text-files)
+      - 4.2.3 [Update hparams.py](#update-hparams.py)
 5. Training
    - 5.1 [Training using pretrained weights](#training-using-pretrained-weights)
    - 5.2 [Training from scratch](#training-from-scratch)
@@ -30,6 +39,7 @@ You can play the demo [here](https://soundcloud.com/aastha-singh-948869638/tacot
 6. Inference
     - 6.1 [Download pre-trained models](#download-pre-trained-models)
     - 6.2 [Run Jupyter notebook](#run-jupyter-notebook)
+    - 6.3 [Multiple Vocoders](#multiple-vocoders)
 7. Related repos
 8. Acknowledgements
 
