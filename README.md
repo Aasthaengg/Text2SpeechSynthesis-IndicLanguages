@@ -85,14 +85,22 @@ pip3 install -r requirements.txt
 
 ## 3. Dataset
 
-### 3.1 About Dataset
+This version of Tacotron2 is trained with two different datasets. You can choose either of them. 
 
-* This version of Tacotron2 is trained on high-quality Hindi multi-speaker speech data set from [OpenSLR](http://www.openslr.org/103/)
+### 3.1 About OpenSLR Dataset
+
+* This dataset is a high-quality Hindi multi-speaker speech dataset from [OpenSLR](http://www.openslr.org/103/)
 * The Hindi speech dataset is split into train and test sets with 95.05 hours and 5.55 hours of audio respectively
 * There are 4506 and 386 unique sentences taken from Hindi stories in the train and test sets, respectively, with no overlap of sentences. The train set contains utterances from a set of 59 speakers, and the test set contains speakers from a disjoint set of 19 speakers
 * The audio files are sampled at 8kHz, 16-bit encoding. The total vocabulary size of the train and test set is 6542
 
-### 3.2 Download and Extract Dataset
+### 3.2 About IIIT-Hyderabad Dataset
+
+* This dataset consists of single-speaker samples from [IIIT-Hyd](http://cvit.iiit.ac.in/research/projects/cvit-projects/text-to-speech-dataset-for-indian-languages)
+* There are 9368 samples available for training
+* The data has a sampling rate of 48kHz
+
+### 3.3 Download and Extract OpenSLR Dataset
 
 ```sh
 # Download train dataset
@@ -113,26 +121,74 @@ mv train HindiDataset/
 mv test HindiDataset/
 ```
 
+### 3.4 Download and Extract IIT-Hyd Dataset
+
+Request for the dataset [here](http://cvit.iiit.ac.in/research/projects/cvit-projects/text-to-speech-dataset-for-indian-languages).
+
+```sh
+# Copy the data to dataset folder
+mkdir HindiDataset
+mv Dataset HindiDataset/train_raw
+```
+
 ---
 
 ## 4. Data Preprocessing
 
+### 4.1 OpenSLR
+
 OpenSLR data consists of `transcription.txt` file. This needs to be converted into the format
 compatible with tacotron2 training.
 
-### 4.1 Upsample to 22050 Hz
+**4.1.1 Upsample to 22050 Hz**
 
 ```sh
 python3 upsampler.py HindiDataset/train/audio/
 python3 upsampler.py HindiDataset/test/audio/
 ```
 
-### 4.2 Creating train and test text files
+**4.1.2 Creating train and test text files**
 
 Run `filelist_creator.py` to create text files for training
 
 ```sh
 python3 filelist_creator.py HindiDataset/
+```
+
+**4.1.3 Update `hparams.py`**
+
+Open this file and change `training_files` and `validation_files` accordingly
+
+```python
+training_files='filelists/openslr_hindi_train.txt',
+validation_files='filelists/openslr_hindi_test.txt',
+```
+
+### 4.2 IIIT-Hyd
+
+This dataset provides an `annotations.csv` file. This needs to be converted into the format compatible with tacotron2 training.
+
+**4.2.1 Downsample the data to 22050 Hz**
+
+```sh
+mkdir -p HindiDataset/train
+python3 format_changer.py HindiDataset/train_raw/ HindiDataset/train/
+```
+
+**4.2.2 Create train and test text files**
+
+```sh
+cp annotations.csv filelists/iiit-hyd_hindi_train.txt
+cp annotations.csv filelists/iiit-hyd_hindi_test.txt
+```
+
+**4.2.3 Update `hparams.py`**
+
+Open this file and change `training_files` and `validation_files` accordingly
+
+```python
+training_files='filelists/iiit-hyd_hindi_train.txt',
+validation_files='filelists/iiit-hyd_hindi_test.txt',
 ```
 
 ---
@@ -179,10 +235,10 @@ tensorboard --logdir=outdir/logdir
 ### 6.1 Download pre-trained models
 
 1. Download waveglow from [here](https://drive.google.com/file/d/1hjGdxKRsG_lgemRmbK6A0MceFOPaFY8Q/view?usp=sharing)
-2. Download pre-trained hindi from [here](https://drive.google.com/file/d/1hjGdxKRsG_lgemRmbK6A0MceFOPaFY8Q/view?usp=sharing)
+2. Download pre-trained openslr hindi from [here](https://drive.google.com/file/d/1hjGdxKRsG_lgemRmbK6A0MceFOPaFY8Q/view?usp=sharing)
+3. Download pre-trained iiit-hyd hindi from [here](https://drive.google.com/file/d/1oSO62757-URGcDeCJs94P3RrRvpO72Yy/view?usp=sharing)
 
-N.b. When performing Mel-Spectrogram to Audio synthesis, make sure Tacotron 2
-and the Mel decoder were trained on the same mel-spectrogram representation.
+N.b. When performing Mel-Spectrogram to Audio synthesis, make sure Tacotron 2 and the Mel decoder were trained on the same mel-spectrogram representation.
 
 ### 6.2 Run jupyter notebook
 
@@ -191,6 +247,20 @@ jupyter notebook --ip=127.0.0.1 --port=31337
 ```
 
 Run `inference.ipynb`.
+
+### 6.3 Multiple Vocoders
+
+The vocoders supported in this repository are `WaveGlow`, `MelGAN` and `HiFiGAN`.
+
+First install NeMo
+
+```sh
+git clone https://github.com/NVIDIA/NeMo.git
+cd NeMo
+./reinstall.sh
+```
+
+Use the `inference.ipynb` notebook to use different vocoders.
 
 ---
 
